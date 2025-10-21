@@ -4,6 +4,7 @@ import "./globals.css";
 import { basic_metadata } from "@/lib/exporter";
 import Navbar from "@/components/Header/Navbar";
 import { Toaster } from "@/components/ui/sonner";
+import "react-phone-input-2/lib/style.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
