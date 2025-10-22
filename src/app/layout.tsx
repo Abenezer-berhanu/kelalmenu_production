@@ -5,6 +5,8 @@ import { basic_metadata } from "@/lib/exporter";
 import Navbar from "@/components/Header/Navbar";
 import { Toaster } from "@/components/ui/sonner";
 import "react-phone-input-2/lib/style.css";
+import { Suspense } from "react";
+import Spinner from "@/components/Spinner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +30,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
+        <Suspense fallback={<Spinner />}>
+          <Navbar />
+        </Suspense>
         {children}
         <Toaster />
       </body>

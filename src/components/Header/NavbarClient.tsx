@@ -13,13 +13,10 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-export default function NavbarClient() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function NavbarClient({ user }: { user: any }) {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
-
-  // const dashboardHref = slug
-  //   ? `${links.hotel_dashboard}/${slug}`
-  //   : links.hotel_home || links.hotel_dashboard;
 
   return (
     <header className="py-5 border-b bg-white sticky top-0 z-50">
@@ -98,9 +95,12 @@ export default function NavbarClient() {
                     <div className="flex items-center gap-2">
                       <Image
                         src={images.logo}
-                        width={60}
-                        height={60}
-                        alt="logo"
+                        width={50}
+                        height={50}
+                        quality={100}
+                        className="w-12 h-12"
+                        alt={constants.name + "_logo"}
+                        priority
                       />
                       <span className="font-semibold text-lg">
                         {constants.name}

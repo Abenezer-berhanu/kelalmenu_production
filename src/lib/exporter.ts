@@ -15,7 +15,6 @@ export const links = {
   login: "/auth/login",
   register: "/auth/register",
   hotel_dashboard: "/kelalmenu/hotels/dashboard",
-  hotel_home: "/kelalmenu/hotels",
   public_menu: "public-menu",
 };
 
@@ -132,6 +131,7 @@ export const basic_metadata = {
   title: `${constants.name} ${constants.syllable}`,
   description: `Revolutionize your dining experience with ${constants.name}. Easily convert traditional menus to interactive digital QR code menus. Boost efficiency, reduce printing costs, and engage customers with real-time updates. Start free today!`,
   keywords: metadataKeywords,
+  metadataBase: new URL(`${links.base_url}`),
   openGraph: {
     title: `${constants.name} ${constants.syllable}`,
     description: `Revolutionize your dining experience with ${constants.name}. Easily convert traditional menus to interactive digital QR code menus. Boost efficiency, reduce printing costs, and engage customers with real-time updates. Start free today!`,

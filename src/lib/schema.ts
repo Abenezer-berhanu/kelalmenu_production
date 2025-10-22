@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, SQL, sql } from "drizzle-orm";
 import {
   pgTable,
   uuid,
@@ -9,6 +9,7 @@ import {
   integer,
   timestamp,
   pgEnum,
+  AnyPgColumn,
 } from "drizzle-orm/pg-core";
 
 // ---------- Enums ----------
@@ -145,3 +146,7 @@ export const orderRelations = relations(order, ({ one }) => ({
     references: [hotel.id],
   }),
 }));
+
+export function lower(email: AnyPgColumn): SQL {
+  return sql`lower(${email})`;
+}
