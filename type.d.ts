@@ -31,7 +31,7 @@ export interface HotelType {
   subscription_start: Date | null;
   subscription_end: Date | null;
   plan_history: unknown;
-  home_logo: unknown;
+  home_logo: { url: string; image_id: string };
   offer_delivery: boolean | null;
   ads_controlled_by: "SELF" | "SYSTEM" | null;
   period: string | null;

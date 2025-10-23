@@ -125,22 +125,28 @@ export default function NavbarClient({ user }: { user: any }) {
                   </ul>
                 </nav>
 
-                <div className="mt-8 flex flex-col gap-3">
-                  <Link
-                    className="block text-center rounded-md px-5 py-2.5 text-sm font-medium transition bg-primary hover:bg-primary-hover text-primary-foreground"
-                    href={links.login}
-                    onClick={handleClose}
-                  >
-                    Login
+                {!user ? (
+                  <div className="mt-8 flex flex-col gap-3">
+                    <Link
+                      className="block text-center rounded-md px-5 py-2.5 text-sm font-medium transition bg-primary hover:bg-primary-hover text-primary-foreground"
+                      href={links.login}
+                      onClick={handleClose}
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      className="block text-center rounded-md px-5 py-2.5 text-sm font-medium transition bg-secondary hover:bg-primary-hover hover:text-primary-foreground"
+                      href={links.register}
+                      onClick={handleClose}
+                    >
+                      Register
+                    </Link>
+                  </div>
+                ) : (
+                  <Link href={links.hotel_dashboard + `/${user.id}`}>
+                    <Button>Dashboard</Button>
                   </Link>
-                  <Link
-                    className="block text-center rounded-md px-5 py-2.5 text-sm font-medium transition bg-secondary hover:bg-primary-hover hover:text-primary-foreground"
-                    href={links.register}
-                    onClick={handleClose}
-                  >
-                    Register
-                  </Link>
-                </div>
+                )}
               </SheetContent>
             </Sheet>
           </div>
