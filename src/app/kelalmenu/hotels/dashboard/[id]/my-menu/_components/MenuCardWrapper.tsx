@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { getMyMenus } from "@/actions/menu";
 
 async function MenuCardWrapper({ hotelId }: { hotelId: string }) {
-  const hotelMenus = (await getMyMenus(hotelId)).data;
+  const hotelMenus = await getMyMenus(hotelId);
+  console.log(hotelMenus);
   const menus = (hotelMenus.data as MenuItemType[]) || [];
 
   return (
@@ -23,7 +24,7 @@ async function MenuCardWrapper({ hotelId }: { hotelId: string }) {
         </div>
       ) : (
         <div className="w-full max-w-6xl mx-auto grid grid-cols-2">
-          {hotelMenus.map((menu: MenuItemType) => (
+          {menus.map((menu: MenuItemType) => (
             <MenuCard edit={true} key={menu.id} menu={menu} />
           ))}
         </div>

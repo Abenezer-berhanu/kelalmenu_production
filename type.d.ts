@@ -58,5 +58,4 @@ export interface MenuItemType {
     label: "seconds" | "minutes" | "hours";
     value: float;
   };
-  created_at: Date;
 }

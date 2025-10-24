@@ -501,3 +501,25 @@ export const subCategoryOptions = [
     items: ["Coffee", "Tea", "Smoothie", "Juice", "Milkshake", "Cocktail"],
   },
 ];
+
+export const planLimits = {
+  free: { categories: 3, subcategories: 5, itemsPerSubcategory: 5, total: 25 },
+  standard: {
+    categories: Infinity,
+    subcategories: 20,
+    itemsPerSubcategory: Infinity,
+    total: Infinity,
+  },
+  premium: {
+    categories: Infinity,
+    subcategories: 40,
+    itemsPerSubcategory: Infinity,
+    total: Infinity,
+  },
+  enterprise: {
+    categories: Infinity,
+    subcategories: Infinity,
+    itemsPerSubcategory: Infinity,
+    total: Infinity,
+  },
+};

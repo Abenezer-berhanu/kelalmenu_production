@@ -3,6 +3,7 @@ import BigInfo from "@/components/BigInfo";
 import { auth } from "@/lib/auth";
 import React from "react";
 import MenuForm from "./_components/MenuForm";
+import { basic_info } from "@/lib/exporter";
 
 async function page() {
   const session = await auth();
@@ -20,7 +21,13 @@ async function page() {
   return (
     <div>
       <BigInfo info="Create Your Menu here" />
-      <MenuForm plan={hotel.data.plan} />
+      {hotel.data.status === "APPROVED" ? (
+        <MenuForm plan={hotel.data.plan} id={hotel.data.id} />
+      ) : (
+        <div className="p-3 my-2 border rounded-lg shadow-sm">
+          Your hotel is not active. Please contact support. {basic_info.phone}
+        </div>
+      )}
     </div>
   );
 }
