@@ -39,13 +39,14 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
         info={"+" + hotel?.data?.primary_phone + " - " + hotel?.data?.country}
       />
 
-      <Avatar className="h-30 w-30 ring-2 ring-primary my-2">
+      <Avatar className="h-28 w-28 ring-2 ring-primary my-2">
         <AvatarImage
+          className="object-cover"
           src={
             hotel.data.home_logo ? hotel.data.home_logo.url : images.logo_url
           }
         />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarFallback className="text-xs">Kelal menu</AvatarFallback>
       </Avatar>
       <Badge
         variant={"secondary"}

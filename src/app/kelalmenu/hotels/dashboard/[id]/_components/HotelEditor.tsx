@@ -17,8 +17,8 @@ import { updateHotelProfile } from "@/actions/hotel";
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 import LoadingDialog from "@/components/LoadingDialog";
-import SmallInfo from "@/components/SmallInfo";
 import { ArrowBigDown, Trash } from "lucide-react";
+import DashboardButton from "@/components/DashboardButton";
 
 type Props = { hotel: HotelType | null | undefined };
 
@@ -158,8 +158,8 @@ export default function HotelEditor({ hotel }: Props) {
     <div className="w-full max-w-xl mx-auto space-y-4 p-2">
       {loading && <LoadingDialog open={loading} />}
       {/* Header */}
-
-      <Card>
+      <DashboardButton id={hotel.id} />
+      <Card className="mt-2">
         <CardHeader>
           <CardTitle>
             <BigInfo info="Hotel Dashboard" className="text-primary" />
