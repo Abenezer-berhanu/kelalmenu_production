@@ -48,6 +48,16 @@
     0px 0px 0px 1px rgba(25, 28, 33, 0.08);
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);

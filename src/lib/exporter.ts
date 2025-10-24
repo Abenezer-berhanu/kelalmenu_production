@@ -4,6 +4,8 @@ export const images = {
   loading_gif: "/loading.gif",
   logo_url:
     "https://ik.imagekit.io/kelalmenu/kelalmenu_logo.jpg?updatedAt=1760080318134",
+  food_image:
+    "https://ik.imagekit.io/kelalmenu/istockphoto-1457433817-612x612.jpg?updatedAt=1761298853448",
 };
 
 export const links = {
@@ -180,8 +182,8 @@ export const navLinks = [
 
 export const basic_info = {
   email: "contact@agelgl.com",
-  phoneCTA: "tel: +251986190354",
-  phone: "+251986190354",
+  phoneCTA: "tel: +251919298886",
+  phone: "+251919298886",
 };
 
 export const countryList = [
@@ -434,4 +436,68 @@ export const countryList = [
   "Zambia",
   "Zimbabwe",
   "Åland Islands",
+];
+
+export const categories = [
+  { label: "Breakfast", plan: "all" },
+  { label: "Lunch", plan: "all" },
+  { label: "Dinner", plan: "all" },
+  { label: "Snack", plan: "paid" },
+  { label: "Desserts", plan: "paid" },
+  { label: "Lunch / Dinner", plan: "paid" },
+  { label: "Juice / Drinks", plan: "paid" },
+  { label: "Hot Beverages", plan: "paid" },
+  { label: "Cold Beverages", plan: "paid" },
+  { label: "Alcohol Drinks", plan: "paid" },
+  { label: "All Day", plan: "paid" },
+];
+
+export const subCategoryOptions = [
+  {
+    group: "Ethiopian 🇪🇹",
+    items: ["Injera", "Shiro", "Doro Wat", "Tibs", "Firfir", "Kitfo"],
+  },
+  {
+    group: "Indian 🇮🇳",
+    items: [
+      "Biryani",
+      "Samosa",
+      "Paneer Butter Masala",
+      "Naan",
+      "Masala Dosa",
+      "Chaat",
+    ],
+  },
+  {
+    group: "Italian 🇮🇹",
+    items: ["Pizza", "Pasta", "Lasagna", "Risotto", "Bruschetta"],
+  },
+  {
+    group: "American 🇺🇸",
+    items: ["Burger", "Hotdog", "Fried Chicken", "Steak", "Pancakes"],
+  },
+  {
+    group: "Asian 🍜",
+    items: ["Sushi", "Ramen", "Dim Sum", "Pad Thai", "Spring Rolls"],
+  },
+  {
+    group: "Middle Eastern 🌍",
+    items: ["Shawarma", "Falafel", "Hummus", "Kebab", "Tabbouleh"],
+  },
+  {
+    group: "African 🌍",
+    items: ["Jollof Rice", "Ugali", "Bobotie", "Pilau", "Suya"],
+  },
+  {
+    group: "Latin American 🇲🇽",
+    items: ["Tacos", "Burrito", "Empanada", "Arepa", "Churros"],
+  },
+  {
+    group: "European 🇪🇺",
+    items: ["Croissant", "Paella", "Schnitzel", "Crepe", "Goulash"],
+  },
+  {
+    group: "Drinks & Juice 🍹",
+    items: ["Coffee", "Tea", "Smoothie", "Juice", "Milkshake", "Cocktail"],
+  },
 ];

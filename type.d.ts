@@ -13,7 +13,7 @@ export interface ReturnType {
   error: boolean;
   success: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: null | undefined | HotelType;
+  data: any;
   message: string;
 }
 
@@ -41,3 +41,22 @@ export interface HotelType {
   country: string | null;
 }
 [];
+
+export interface MenuItemType {
+  id: string;
+  name: string;
+  currency: string;
+  hotel_id: string;
+  image: { url: string; image_id: string } | null;
+  ingredients: string[];
+  category: string;
+  sub_category: string;
+  price: number;
+  is_new: boolean | null;
+  is_recommended_by_hotel_for_customers: boolean | null;
+  preparation_time: {
+    label: "seconds" | "minutes" | "hours";
+    value: float;
+  };
+  created_at: Date;
+}

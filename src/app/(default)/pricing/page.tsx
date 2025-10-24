@@ -30,7 +30,7 @@ const pricingPlans = [
     yearly: "5500 ETB / year",
     free: "2 months free",
     features: [
-      "✅ 20 categories (Breakfast, Lunch, Dinner)",
+      "✅ Unlimited categories (Breakfast, Lunch, Dinner)",
       "✅ 20 subcategories (Wot, Tibs, Burger, Pizza...)",
       "✅ Unlimited items per subcategory",
       "⚠️ Ad controlled by you — you can update and display your own ads",
@@ -42,7 +42,7 @@ const pricingPlans = [
     free: "2 months free",
     yearly: "350 USD / year",
     features: [
-      "✅ 20 categories (Breakfast, Lunch, Dinner)",
+      "✅ Unlimited categories (Breakfast, Lunch, Dinner)",
       "✅ 40 subcategories (Chicken, Burger, Pizza...)",
       "✅ Unlimited items per subcategory",
       "⚠️ Ad controlled by you — you can update and display your own ads",
