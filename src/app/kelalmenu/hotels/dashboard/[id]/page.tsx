@@ -19,11 +19,12 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
 
   if (hotel.error || !hotel.data || !session?.user) {
     return (
-      <div>
+      <div className="p-6">
         <h1 className="text-2xl font-bold mb-1 mt-10">Something went wrong</h1>
-        <Link href={links.login}>
-          <Button>Go to Login</Button>
-        </Link>
+        <p className="mt-2">Please sign in to view your dashboard.</p>
+        <a href={links.login} className="text-primary mt-2 inline-block">
+          Go to Login
+        </a>
       </div>
     );
   }
@@ -77,6 +78,14 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
             description="Manage your on-menu promotion"
             link={links.hotel_dashboard + `/${session.user.id}/my-ads`}
           />
+
+          {hotel.data?.plan?.toUpperCase() === "FREE" && (
+            <QuickActionCard
+              title="Upgrade plan"
+              description="Upgrade your plan to unlock more features"
+              link={links.hotel_dashboard + `/${session.user.id}/upgrade-plan`}
+            />
+          )}
         </div>
       </div>
     </div>

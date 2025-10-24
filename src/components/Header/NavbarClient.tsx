@@ -28,7 +28,6 @@ export default function NavbarClient({ user }: { user: any }) {
             src={images.logo}
             width={220}
             height={220}
-            quality={100}
             className="w-24 h-24"
             alt={constants.name + "_logo"}
             priority
@@ -53,15 +52,21 @@ export default function NavbarClient({ user }: { user: any }) {
           </nav>
 
           {/* Auth Buttons (Desktop) */}
-          <div className="hidden md:flex items-center gap-4">
-            <Link href={links.login}>
-              <Button>Login</Button>
-            </Link>
+          {!user ? (
+            <div className="hidden md:flex items-center gap-4">
+              <Link href={links.login}>
+                <Button>Login</Button>
+              </Link>
 
-            <Link href={links.register}>
-              <Button>Register</Button>
+              <Link href={links.register}>
+                <Button>Register</Button>
+              </Link>
+            </div>
+          ) : (
+            <Link className="mr-2" href={links.hotel_dashboard + `/${user.id}`}>
+              <Button>Dashboard</Button>
             </Link>
-          </div>
+          )}
 
           {/* Mobile Menu (Sheet) */}
           <div className="md:hidden flex items-center">
