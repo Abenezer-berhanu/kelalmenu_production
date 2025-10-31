@@ -5,6 +5,8 @@ import { MenuItemType, ReturnType } from "../../type";
 import db from "@/db";
 import { menu } from "@/lib/schema";
 import { uploadImage } from "@/lib/helpers";
+import { eq } from "drizzle-orm";
+import imagekit from "@/lib/imageKit";
 
 export const getMyMenus = async (hotelId: string): Promise<ReturnType> => {
   try {
@@ -72,6 +74,12 @@ export const isSubCategoryAndLimitReached = async (
   }
 };
 
+export const deleteImage = async (imageId: string | undefined) => {
+  if (!imageId) return;
+
+  await imagekit.deleteFile(imageId);
+};
+
 export const createHotelMenu = async (
   payload: MenuItemType,
   plan: "FREE" | "STANDARD" | "PREMIUM" | "ENTERPRISE"
@@ -133,6 +141,98 @@ export const createHotelMenu = async (
 
     const newMenu = await db.insert(menu).values({ ...payload });
     return { ...success, data: newMenu as MenuItemType[] };
+  } catch (error) {
+    return errors.somethingWentWrong;
+  }
+};
+
+export const getMenuById = async (menuId: string): Promise<ReturnType> => {
+  try {
+    const hotelMenu = await db.query.menu.findFirst({
+      where: eq(menu.id, menuId),
+    });
+    if (!hotelMenu) {
+      return { ...errors.somethingWentWrong, message: "menu not found" };
+    }
+    return { ...success, data: hotelMenu as MenuItemType };
+  } catch (error) {
+    return errors.somethingWentWrong;
+  }
+};
+
+export const updateMenuItem = async (
+  id: string,
+  hotelId: string,
+  plan: "FREE" | "STANDARD" | "PREMIUM" | "ENTERPRISE",
+  data: Partial<MenuItemType>
+): Promise<ReturnType> => {
+  try {
+    // Only check limits if subcategory or name is changing
+    if (data.sub_category || data.name) {
+      const canCreationProceed = await isSubCategoryAndLimitReached(
+        hotelId,
+        data.sub_category ?? "",
+        plan === "FREE"
+          ? planLimits.free.subcategories
+          : plan === "STANDARD"
+          ? planLimits.standard.subcategories
+          : plan === "PREMIUM"
+          ? planLimits.premium.subcategories
+          : planLimits.enterprise.subcategories,
+        plan === "FREE"
+          ? planLimits.free.total
+          : plan === "STANDARD"
+          ? planLimits.standard.total
+          : plan === "PREMIUM"
+          ? planLimits.premium.total
+          : planLimits.enterprise.total,
+        data.name ?? ""
+      );
+
+      if (canCreationProceed.menuItemReached) {
+        return {
+          ...errors.somethingWentWrong,
+          message: `Menu item limit reached for your plan${
+            plan === "FREE" ? " — Upgrade your plan" : ""
+          }`,
+        };
+      }
+
+      if (canCreationProceed.subLimitReached) {
+        return {
+          ...errors.somethingWentWrong,
+          message: `Sub-category item limit reached for your plan${
+            plan === "FREE" ? " — Upgrade your plan" : ""
+          }`,
+        };
+      }
+
+      if (canCreationProceed.nameTaken) {
+        return {
+          ...errors.somethingWentWrong,
+          message: `Menu item name is already taken. Please choose a different name.`,
+        };
+      }
+    }
+
+    // Handle image update
+    let imageRes = null;
+    const prevImageId = data.image?.image_id;
+
+    if (data.image?.url && typeof data.image.url !== "string") {
+      imageRes = await uploadImage(data.image.url as File);
+      data.image = { url: imageRes.url, image_id: imageRes.image_id };
+
+      if (prevImageId) await deleteImage(prevImageId);
+    }
+
+    const updatedMenu = await db.update(menu).set(data).where(eq(menu.id, id));
+
+    if (!updatedMenu) {
+      return { ...errors.somethingWentWrong, message: "Menu not found" };
+    }
+
+    return { ...success, data: updatedMenu };
   } catch (error) {
     return errors.somethingWentWrong;
   }

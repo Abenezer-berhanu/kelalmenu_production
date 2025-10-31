@@ -8,7 +8,7 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   return (
-    <div>
+    <div className="max-w-[800px] mx-auto">
       <div className="flex flex-col gap-2">
         <DashboardButton id={id} />
         <BigInfo
