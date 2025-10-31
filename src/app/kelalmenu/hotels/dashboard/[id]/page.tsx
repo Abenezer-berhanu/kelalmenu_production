@@ -14,7 +14,6 @@ import { BadgeCheckIcon } from "lucide-react";
 async function page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const session = await auth();
-
   const hotel = await getActiveHotelInfo(id);
 
   if (hotel.error || !hotel.data || !session?.user) {
@@ -30,63 +29,76 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
   }
 
   return (
-    <div className="flex flex-col items-center p-2">
-      {/* profile picture and button to profile here */}
-      <SmallInfo className="" info="👋 Welcome to your dashboard" />
-      <BigInfo className="text-primary" info={hotel?.data?.home_name} />
-      <BigInfo
-        className="text-black text-sm"
-        info={"+" + hotel?.data?.primary_phone + " - " + hotel?.data?.country}
-      />
-
-      <Avatar className="h-28 w-28 ring-2 ring-primary my-2">
-        <AvatarImage
-          className="object-cover"
-          src={
-            hotel.data.home_logo ? hotel.data.home_logo.url : images.logo_url
-          }
-        />
-        <AvatarFallback className="text-xs">Kelal menu</AvatarFallback>
-      </Avatar>
-      <Badge
-        variant={"secondary"}
-        className="bg-blue-500 text-white dark:bg-blue-600 my-2"
-      >
-        {hotel?.data?.plan !== "FREE" && <BadgeCheckIcon />}
-        {hotel?.data?.plan}
-      </Badge>
-      <Link href={links.hotel_dashboard + `/${session.user.id}/profile`}>
-        <Button variant="outline">Go to Profile</Button>
-      </Link>
-      {/* rest of dashboard components here */}
-      <div className="flex flex-col items-start">
-        <BigInfo className="mt-3" info={"Quick actions"} />
-        <div className="flex flex-col gap-3 mt-2">
-          <QuickActionCard
-            title="Your Menus"
-            description="Update - Create - See - Delete you menu items"
-            link={links.hotel_dashboard + `/${session.user.id}/my-menu`}
+    <div className="w-full min-h-screen bg-background flex justify-center p-4">
+      {/* Center container with responsive max width */}
+      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start">
+        {/* LEFT — Profile & Info */}
+        <div className="flex flex-col items-center md:items-start p-4 md:p-6 rounded-xl bg-card shadow-sm">
+          <SmallInfo info="👋 Welcome to your dashboard" />
+          <BigInfo className="text-primary" info={hotel.data.home_name} />
+          <BigInfo
+            className="text-black text-sm"
+            info={"+" + hotel.data.primary_phone + " - " + hotel.data.country}
           />
 
-          <QuickActionCard
-            title="My Qr Code"
-            description="Generate and get your Qr code for your menus"
-            link={links.hotel_dashboard + `/${session.user.id}/qr-code`}
-          />
-
-          <QuickActionCard
-            title="Ads/notices"
-            description="Manage your on-menu promotion"
-            link={links.hotel_dashboard + `/${session.user.id}/my-ads`}
-          />
-
-          {hotel.data?.plan?.toUpperCase() === "FREE" && (
-            <QuickActionCard
-              title="Upgrade plan"
-              description="Upgrade your plan to unlock more features"
-              link={links.hotel_dashboard + `/${session.user.id}/upgrade-plan`}
+          <Avatar className="h-32 w-32 ring-2 ring-primary my-4">
+            <AvatarImage
+              className="object-cover"
+              src={
+                hotel.data.home_logo
+                  ? hotel.data.home_logo.url
+                  : images.logo_url
+              }
             />
-          )}
+            <AvatarFallback className="text-xs">Kelal Menu</AvatarFallback>
+          </Avatar>
+
+          <Badge
+            variant="secondary"
+            className="bg-blue-500 text-white dark:bg-blue-600 mb-2"
+          >
+            {hotel.data.plan !== "FREE" && <BadgeCheckIcon className="mr-1" />}
+            {hotel.data.plan}
+          </Badge>
+
+          <Link href={`${links.hotel_dashboard}/${session.user.id}/profile`}>
+            <Button variant="outline" className="mt-2 w-full md:w-auto">
+              Go to Profile
+            </Button>
+          </Link>
+        </div>
+
+        {/* RIGHT — Quick Actions */}
+        <div className="flex flex-col items-start p-4 md:p-6 rounded-xl bg-card shadow-sm">
+          <BigInfo className="mb-3" info="Quick Actions" />
+
+          <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 w-full">
+            <QuickActionCard
+              title="Your Menus"
+              description="Update - Create - See - Delete your menu items"
+              link={`${links.hotel_dashboard}/${session.user.id}/my-menu`}
+            />
+
+            <QuickActionCard
+              title="My Qr Code"
+              description="Generate and get your Qr code for your menus"
+              link={`${links.hotel_dashboard}/${session.user.id}/qr-code`}
+            />
+
+            <QuickActionCard
+              title="Ads / Notices"
+              description="Manage your on-menu promotion"
+              link={`${links.hotel_dashboard}/${session.user.id}/my-ads`}
+            />
+
+            {hotel.data.plan?.toUpperCase() === "FREE" && (
+              <QuickActionCard
+                title="Upgrade Plan"
+                description="Unlock more features with a higher plan"
+                link={`${links.hotel_dashboard}/${session.user.id}/upgrade-plan`}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

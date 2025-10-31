@@ -6,7 +6,7 @@ import BigInfo from "@/components/BigInfo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Edit, Trash, X } from "lucide-react";
+import { Edit, Trash } from "lucide-react";
 import { SelectSeparator } from "@/components/ui/select";
 import {
   Dialog,
