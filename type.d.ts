@@ -39,6 +39,8 @@ export interface HotelType {
   reason: string | null;
   visit: number | null;
   country: string | null;
+  isQrGenerated?: boolean;
+  qrCode: { url: string; image_id: string };
 }
 [];
 

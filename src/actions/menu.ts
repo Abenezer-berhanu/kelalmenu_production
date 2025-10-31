@@ -1,13 +1,14 @@
 "use server";
 
-import { errors, planLimits, success } from "@/lib/exporter";
+import { errors, links, planLimits, success } from "@/lib/exporter";
 import { MenuItemType, ReturnType } from "../../type";
 import db from "@/db";
-import { menu } from "@/lib/schema";
+import { hotel, menu } from "@/lib/schema";
 import { uploadImage } from "@/lib/helpers";
 import { eq } from "drizzle-orm";
 import imagekit from "@/lib/imageKit";
 import { revalidatePath } from "next/cache";
+import QRCODE from "qrcode";
 
 export const getMyMenus = async (hotelId: string): Promise<ReturnType> => {
   try {
@@ -248,6 +249,33 @@ export const deleteMenuItem = async (menuId: string, path: string) => {
     if (!menuId) return errors.somethingWentWrong;
     await db.delete(menu).where(eq(menu.id, menuId));
     revalidatePath(path);
+  } catch (error) {
+    return errors.somethingWentWrong;
+  }
+};
+
+export const createMyQrCode = async (
+  prevState: unknown,
+  formData: FormData
+): Promise<ReturnType> => {
+  try {
+    const hotelId = formData.get("hotelId") as string;
+    if (!hotelId) return { ...errors.somethingWentWrong, message: "" };
+
+    const qrUrl = await QRCODE.toDataURL(
+      `${process.env.BASE_URL}${links.hotel_dashboard}/${hotelId}/public_menu`
+    );
+
+    const uploadedQr = await uploadImage(qrUrl as unknown as File, true);
+
+    await db
+      .update(hotel)
+      .set({
+        qrCode: { url: uploadedQr.url, image_id: uploadedQr.image_id },
+        isQrGenerated: true,
+      });
+
+    return { ...success, data: { qrUrl: uploadedQr.url } };
   } catch (error) {
     return errors.somethingWentWrong;
   }

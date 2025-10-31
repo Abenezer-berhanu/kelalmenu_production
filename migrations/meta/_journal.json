@@ -15,6 +15,13 @@
       "when": 1761037127523,
       "tag": "0001_blushing_umar",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1761942288167,
+      "tag": "0002_added_qr_field_on_hotel_schema",
+      "breakpoints": true
     }
   ]
 }

@@ -61,6 +61,8 @@ export const hotel = pgTable("Hotel", {
   reason: text("reason"),
   visit: integer("visit").default(0),
   country: varchar("country", { length: 100 }),
+  isQrGenerated: boolean("is_qr_generated").default(false),
+  qrCode: jsonb("qr_code"),
 });
 
 export const ad = pgTable("Ad", {
