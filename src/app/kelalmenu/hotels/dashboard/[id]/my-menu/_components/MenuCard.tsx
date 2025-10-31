@@ -6,7 +6,17 @@ import BigInfo from "@/components/BigInfo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Edit } from "lucide-react";
+import { Edit, Trash, X } from "lucide-react";
+import { SelectSeparator } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import MenuDeletingForm from "./MenuDeletingForm";
 
 function MenuCard({ menu, edit }: { menu: MenuItemType; edit?: boolean }) {
   return (
@@ -15,9 +25,9 @@ function MenuCard({ menu, edit }: { menu: MenuItemType; edit?: boolean }) {
         <Image
           src={menu.image?.url || images.food_image}
           alt={menu.name}
-          width={200}
-          height={200}
-          className="rounded-lg w-full"
+          width={100}
+          height={100}
+          className="rounded-lg w-full max-w-32"
         />
       </div>
       <div>
@@ -40,17 +50,48 @@ function MenuCard({ menu, edit }: { menu: MenuItemType; edit?: boolean }) {
         </div>
       </div>
       {edit && (
-        <Link
-          href={links.hotel_dashboard + `/${menu.hotel_id}/my-menu/${menu.id}`}
-        >
-          <Button
-            size={"sm"}
-            variant={"ghost"}
-            className="p-0 text-primary absolute top-1 right-1 bg-white"
+        <div className="fle gap-2 border absolute top-1 right-1">
+          <Link
+            href={
+              links.hotel_dashboard + `/${menu.hotel_id}/my-menu/${menu.id}`
+            }
           >
-            <Edit />
-          </Button>
-        </Link>
+            <Button
+              size={"sm"}
+              variant={"ghost"}
+              className="p-0 text-primary bg-white"
+            >
+              <Edit />
+            </Button>
+          </Link>
+
+          <SelectSeparator />
+
+          <Dialog>
+            <form>
+              <DialogTrigger asChild>
+                <Button
+                  size={"sm"}
+                  variant={"ghost"}
+                  className="p-0 text-destructive bg-white"
+                >
+                  <Trash />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Delete this {menu.name} Item</DialogTitle>
+                  <DialogDescription>
+                    Deleting this menu item will not be reversible. Please
+                    confirm you want to delete this item. you can update the
+                    menu rather you delete it.
+                  </DialogDescription>
+                </DialogHeader>
+                <MenuDeletingForm menuId={menu.id} />
+              </DialogContent>
+            </form>
+          </Dialog>
+        </div>
       )}
     </div>
   );

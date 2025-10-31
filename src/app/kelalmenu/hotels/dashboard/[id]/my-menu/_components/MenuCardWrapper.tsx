@@ -22,7 +22,7 @@ async function MenuCardWrapper({ hotelId }: { hotelId: string }) {
           </Link>
         </div>
       ) : (
-        <div className="w-full max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3">
+        <div className="w-full max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 gap-2">
           {menus.map((menu: MenuItemType) => (
             <MenuCard edit={true} key={menu.id} menu={menu} />
           ))}

@@ -7,6 +7,7 @@ import { menu } from "@/lib/schema";
 import { uploadImage } from "@/lib/helpers";
 import { eq } from "drizzle-orm";
 import imagekit from "@/lib/imageKit";
+import { revalidatePath } from "next/cache";
 
 export const getMyMenus = async (hotelId: string): Promise<ReturnType> => {
   try {
@@ -233,6 +234,16 @@ export const updateMenuItem = async (
     }
 
     return { ...success, data: updatedMenu };
+  } catch (error) {
+    return errors.somethingWentWrong;
+  }
+};
+
+export const deleteMenuItem = async (menuId: string, path: string) => {
+  try {
+    if (!menuId) return errors.somethingWentWrong;
+    await db.delete(menu).where(eq(menu.id, menuId));
+    revalidatePath(path);
   } catch (error) {
     return errors.somethingWentWrong;
   }
