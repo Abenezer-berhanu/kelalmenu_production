@@ -361,7 +361,7 @@ export default function HotelEditor({ hotel }: Props) {
           >
             <Button variant="outline">Promote / Ads</Button>
           </Link>
-        </div>{" "}
+        </div>
       </div>
     </div>
   );

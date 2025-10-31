@@ -7,6 +7,7 @@ import { eq, SQLWrapper } from "drizzle-orm";
 import { HotelType, ReturnType } from "../../type";
 import { revalidatePath } from "next/cache";
 import { uploadImage } from "@/lib/helpers";
+import { deleteImage } from "./menu";
 
 export const getActiveHotelInfo = async (
   id: string | SQLWrapper
@@ -54,6 +55,8 @@ export const updateHotelProfile = async (req: {
         url: uploadedImage.url,
         image_id: uploadedImage.image_id,
       };
+
+      await deleteImage(data.home_logo.image_id);
     }
 
     await db
