@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { links } from "@/lib/exporter";
 import Link from "next/link";
-import React, { ReactElement } from "react";
+import React, { ReactNode } from "react";
 
 async function layout({
   children,
   params,
 }: {
-  children: ReactElement;
+  children: ReactNode;
   params: Promise<{ id: string }>;
 }) {
   const session = await auth();
