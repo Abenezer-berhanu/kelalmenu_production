@@ -78,7 +78,11 @@ export const isSubCategoryAndLimitReached = async (
 export const deleteImage = async (imageId: string | undefined) => {
   if (!imageId) return;
 
-  await imagekit.deleteFile(imageId);
+  try {
+    await imagekit.deleteFile(imageId);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const createHotelMenu = async (

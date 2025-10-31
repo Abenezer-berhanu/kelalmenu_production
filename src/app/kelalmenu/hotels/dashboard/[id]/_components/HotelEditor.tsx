@@ -83,7 +83,7 @@ export default function HotelEditor({ hotel }: Props) {
         ...hotel?.home_logo,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         url: logoFile as any,
-        image_id: "temporary",
+        image_id: hotel?.home_logo.image_id || "",
       };
 
     return changes;
@@ -136,6 +136,7 @@ export default function HotelEditor({ hotel }: Props) {
 
       if (res.success) {
         toast.success(res.message || "Hotel profile updated successfully");
+        location.reload();
       } else if (res.error) {
         toast.error(res.message || "Failed to update hotel profile");
       }

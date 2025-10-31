@@ -51,12 +51,13 @@ export const updateHotelProfile = async (req: {
     if (data.home_logo) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const uploadedImage = await uploadImage(data.home_logo.url as any);
+      const prevImageId = data.home_logo.image_id;
       data.home_logo = {
         url: uploadedImage.url,
         image_id: uploadedImage.image_id,
       };
 
-      await deleteImage(data.home_logo.image_id);
+      await deleteImage(prevImageId);
     }
 
     await db
@@ -66,6 +67,7 @@ export const updateHotelProfile = async (req: {
     revalidatePath(req.pathname);
     return { ...success, message: "Hotel profile updated successfully" };
   } catch (error) {
+    console.log(error);
     return errors.somethingWentWrong;
   }
 };
